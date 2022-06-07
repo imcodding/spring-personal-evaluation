@@ -6,10 +6,11 @@
 </head>
 <body>
     <form action="/signup" method="post">
-        <div><label>아이디: <input type="text" placeholder="아이디를 입력해주세요."></label></div>
-        <div><label>비밀번호: <input type="password" placeholder="비밀번호를 입력해주세요."></label></div>
-        <div><label>이름: <input type="text" placeholder="이름을 입력해주세요."></label></div>
-        <div><label>소속: <input type="text" placeholder="소속을 입력해주세요."></label></div>
+        <div><label>아이디: <input type="text" name="userId" placeholder="아이디를 입력해주세요."></label></div>
+        <div><label>비밀번호: <input type="password" name="password" placeholder="비밀번호를 입력해주세요."></label></div>
+        <div><label>이름: <input type="text" name="name" placeholder="이름을 입력해주세요."></label></div>
+        <div><label>소속: <input type="text" name="dept" placeholder="소속을 입력해주세요."></label></div>
+        <div><label>직급: <input type="text" name="position" placeholder="직급을 입력해주세요."></label></div>
         <button type="submit">회원가입</button>
     </form>
 </body>
