@@ -22,6 +22,7 @@ public class UserDto {
     private String name;
     private String position;
     private String dept;
+    private Role role;
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
@@ -43,7 +44,7 @@ public class UserDto {
                 .build();
     }
 
-    private static String passwordSHA256(String password) {
+    public static String passwordSHA256(String password) {
         //TODO 추후 spring security 적용
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
