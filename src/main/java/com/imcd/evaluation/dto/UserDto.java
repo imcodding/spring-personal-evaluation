@@ -1,14 +1,13 @@
 package com.imcd.evaluation.dto;
 
 import com.imcd.evaluation.code.Role;
+import com.imcd.evaluation.code.Status;
 import com.imcd.evaluation.entity.User;
 import lombok.*;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
 
 @Builder
 @NoArgsConstructor
@@ -41,6 +40,7 @@ public class UserDto {
                 .dept(userDto.getDept())
                 .position(userDto.getPosition())
                 .role(Role.EMPLOYEE)
+                .submitStatus(Status.DONT)
                 .build();
     }
 

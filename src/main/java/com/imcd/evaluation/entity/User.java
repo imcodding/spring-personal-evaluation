@@ -27,7 +27,7 @@ public class User {
     private String dept;
 
     @Enumerated(EnumType.STRING)
-    private Status isSubmit;
+    private Status submitStatus;
 
     @Enumerated(EnumType.STRING)
     private Role role;
