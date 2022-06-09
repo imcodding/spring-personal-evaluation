@@ -1,9 +1,12 @@
 package com.imcd.evaluation.entity;
 
 import com.imcd.evaluation.code.Role;
+import com.imcd.evaluation.code.Status;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +17,8 @@ import javax.persistence.*;
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_no")
+    private Long no;
 
     private String userId;
     private String password;
@@ -23,6 +27,12 @@ public class User {
     private String dept;
 
     @Enumerated(EnumType.STRING)
+    private Status isSubmit;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Target> targets = new ArrayList<>();
 }
 
