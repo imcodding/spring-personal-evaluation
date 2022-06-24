@@ -32,4 +32,14 @@ public class SettingController {
     public void deleteDate(@PathVariable Long settingNo) {
         settingService.deleteDate(settingNo);
     }
+
+    @GetMapping("/target")
+    public String settingTargetForm() {
+        return "evaluate/setting/target";
+    }
+
+    @PostMapping("/target")
+    public void createTarget(@RequestParam String userId) {
+
+    }
 }
