@@ -2,16 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="./css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <form action="/login" method="post">
-        <div>
-            <label>아이디<input type="text" name="userId"></label>
-            <label>비밀번호: <input name="password"></label>
+
+<div class="container">
+    <div class="sub-container">
+        <div class="py-5 text-center">
+            <h2>인사평가 로그인</h2>
         </div>
-        <button type="submit">로그인</button>
-    </form>
-    <a href="#" th:href="@{/signup}" role="button">회원가입</a>
+
+        <form action="/login" method="post">
+            <div><input type="text" name="userId" placeholder="아이디" class="form-control mb-2"></div>
+            <div><input type="password" name="password" placeholder="패스워드" class="form-control mb-2"></div>
+            <button type="submit" class="w-100 btn btn-primary btn-lg btn-color-black" >로그인</button>
+        </form>
+        <hr class="my-4">
+        <button type="button" class="w-100 btn btn-primary btn-lg btn-color-grey"
+                onclick="location.href='signup.html'"
+                th:onclick="|location.href='@{/signup}'|">회원가입</button>
+    </div>
+</div>
 </body>
 </html>
