@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
 </head>
 <body>
-Home
-<a href="#" th:href="@{/evaluate/setting/date}" role="button">평가 기간 설정</a>
+<div class="menu">
+    <a href="/evaluate/new">평가</a>
+    <a href="#">평가결과</a>
+    <a href="#">평가대상설정</a>
+    <a href="#" th:href="@{/evaluate/setting/date}" role="button">평가 기간 설정</a>
+</div>
 </body>
 </html>

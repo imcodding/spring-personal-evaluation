@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
+</head>
+<body>
+<div style="float: right; margin-bottom: 10px">
+    <button class="btn-basic btn-color-black">저장</button>
+    <button class="btn-basic">취소</button>
+</div>
+<table>
+    <tr class="title">
+        <td rowspan="2">사용자</td>
+        <td rowspan="2">직위</td>
+        <td rowspan="2">소속</td>
+        <td colspan="4">인성</td>
+        <td colspan="4">능력</td>
+        <td rowspan="2">의견사항</td>
+    </tr>
+    <tr class="title">
+        <td>열정</td>
+        <td>신의</td>
+        <td>책임</td>
+        <td>조화</td>
+        <td>업무처리</td>
+        <td>고객대응</td>
+        <td>리더십</td>
+        <td>전문지식</td>
+    </tr>
+    <tr class="content" th:each="target : ${targetList}">
+        <td>홍길동</td>
+        <td></td>
+        <td></td>
+        <td>
+            <div th:each="scoreCode : ${scoreCodeList}" class="select">
+                <input type="radio" th:value="${scoreCode.value}"  th:id="'scoreCode'+${scoreCodeStat.index}" name="selectCode">
+                <label th:for="'scoreCode'+${scoreCodeStat.index}" th:text="${scoreCode.displayName}">보통</label>
+            </div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="width: 300px"></td>
+    </tr>
+</table>
+</body>
+</html>

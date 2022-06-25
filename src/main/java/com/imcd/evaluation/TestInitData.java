@@ -1,6 +1,7 @@
 package com.imcd.evaluation;
 
 import com.imcd.evaluation.code.*;
+import com.imcd.evaluation.dto.UserDto;
 import com.imcd.evaluation.entity.User;
 import com.imcd.evaluation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,25 @@ public class TestInitData {
         deptList.add(new SelectCode("SERVER2", "서버2팀"));
         deptList.add(new SelectCode("DESIGN", "디자인팀"));
         return deptList;
+    }
+
+    public static List<SelectCode> getScoreSelectList() {
+        List<SelectCode> scoreList = new ArrayList<>();
+        scoreList.add(new SelectCode(1, "미흡"));
+        scoreList.add(new SelectCode(2, "보통"));
+        scoreList.add(new SelectCode(3, "좋음"));
+        scoreList.add(new SelectCode(4, "우수"));
+        scoreList.add(new SelectCode(5, "최고"));
+        return scoreList;
+    }
+
+    public static List<UserDto> getTargetList() {
+        List<UserDto> users = new ArrayList<>();
+        users.add(new UserDto());
+        users.add(new UserDto());
+        users.add(new UserDto());
+        users.add(new UserDto());
+        users.add(new UserDto());
+        return users;
     }
 }
