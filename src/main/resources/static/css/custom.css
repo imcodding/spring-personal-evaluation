@@ -98,3 +98,15 @@ td {
     background-color: #333;
     color: #fff;
 }
+.fLeft {
+    float: left;
+}
+.fRight {
+    float: right;
+}
+.width-half {
+    width: 49.5%;
+}
+button {
+    cursor: pointer;
+}

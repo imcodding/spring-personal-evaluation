@@ -1,9 +1,11 @@
 package com.imcd.evaluation.controller;
 
+import com.imcd.evaluation.TestInitData;
 import com.imcd.evaluation.dto.SettingDto;
 import com.imcd.evaluation.service.SettingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -34,7 +36,8 @@ public class SettingController {
     }
 
     @GetMapping("/target")
-    public String settingTargetForm() {
+    public String settingTargetForm(Model model) {
+        model.addAttribute("targetList", TestInitData.getTargetList());
         return "evaluate/setting/target";
     }
 
