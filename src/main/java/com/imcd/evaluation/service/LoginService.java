@@ -30,7 +30,8 @@ public class LoginService {
     public void login(UserDto userDto, HttpServletResponse response) {
         Optional<User> user = userRepository.findUserByUserIdAndPassword(
                 userDto.getUserId(),
-                UserDto.passwordSHA256(userDto.getPassword())
+                userDto.getPassword()
+//                UserDto.passwordSHA256(userDto.getPassword())
         );
 
         if(user.isEmpty()) throw new ErrorException(ErrorCode.NO_USER);

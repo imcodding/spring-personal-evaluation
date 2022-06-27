@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 8px; /* 기본 적용. bootstrap 때문에 정의 */
+}
+/* 컨테이너 */
 .container {
     max-width: 560px;
 }
@@ -9,6 +15,10 @@
     border: 1px solid #dadada;
     border-radius: 5px;
     padding: 20px 20px 70px 20px;
+}
+/* 버튼 */
+button {
+    cursor: pointer;
 }
 .btn-color-black {
     background: #1e2121;
@@ -29,14 +39,14 @@
     border-color: rgba(238, 238, 238, 0.85);
     color: black;
 }
-.field-error {
-    border-color: #dc3545;
-    color: #dc3545;
+.btn-basic {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
 }
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-body {
-    font-family: 'Nanum Gothic', sans-serif;
-}
+
+/* 메뉴 */
 .menu {
     height: 60px;
     background: rgb(40,40,42);
@@ -50,6 +60,7 @@ body {
     font-weight: normal;
     margin-left: 30px;
 }
+/* 테이블 */
 table {
     border-collapse: collapse;
     text-align: center;
@@ -69,12 +80,7 @@ td {
 .content td {
     width: 100px
 }
-.btn-basic {
-    width: 80px;
-    height: 30px;
-    border-radius: 5px;
-    border: none;
-}
+/* 라디오 */
 .select {
 
 }
@@ -98,6 +104,17 @@ td {
     background-color: #333;
     color: #fff;
 }
+/* input */
+.w-180 {
+    width: 180px;
+}
+.w-140 {
+    width: 140px;
+}
+.h-30 {
+    height: 30px;
+}
+/* 그 외 */
 .fLeft {
     float: left;
 }
@@ -107,6 +124,7 @@ td {
 .width-half {
     width: 49.5%;
 }
-button {
-    cursor: pointer;
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
 }
