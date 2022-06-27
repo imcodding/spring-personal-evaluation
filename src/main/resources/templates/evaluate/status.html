@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/custom.css}" href="/css/custom.css" rel="stylesheet">
+</head>
+<body>
+<div class="width-half fLeft">
+    <table>
+        <tr class="title">
+            <td>평가명</td>
+            <td>시작일</td>
+            <td>종료일</td>
+            <td>제출</td>
+            <td>대상</td>
+            <td>진행률</td>
+        </tr>
+        <tr>
+            <td>2022 상반기 평가</td>
+            <td>2022-07-01</td>
+            <td>2022-07-03</td>
+            <td>1</td>
+            <td>60</td>
+            <td>1%</td>
+        </tr>
+    </table>
+</div>
+<div class="width-half fRight">
+    <table>
+        <tr class="title">
+            <td>소속</td>
+            <td>이름</td>
+            <td>직위</td>
+            <td>제출여부</td>
+        </tr>
+        <tr>
+            <td>웹플랫폼</td>
+            <td>홍길동</td>
+            <td>사원</td>
+            <td>
+                <span class="submit-dont">미제출</span>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

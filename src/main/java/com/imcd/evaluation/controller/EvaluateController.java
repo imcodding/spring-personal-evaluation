@@ -16,4 +16,9 @@ public class EvaluateController {
         model.addAttribute("targetList", TestInitData.getTargetList());
         return "evaluate/addForm";
     }
+
+    @GetMapping("/status")
+    public String evaluateStatus() {
+        return "evaluate/status";
+    }
 }

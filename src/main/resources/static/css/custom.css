@@ -128,3 +128,8 @@ td {
     border-color: #dc3545;
     color: #dc3545;
 }
+.submit-dont {
+    padding: 5px 10px;
+    background: #ffe4e4;
+    border-radius: 5px;
+}
