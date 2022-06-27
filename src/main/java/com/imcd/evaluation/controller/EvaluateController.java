@@ -4,6 +4,7 @@ import com.imcd.evaluation.TestInitData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,5 +21,10 @@ public class EvaluateController {
     @GetMapping("/status")
     public String evaluateStatus() {
         return "evaluate/status";
+    }
+
+    @GetMapping("/result/{userId}")
+    public String evaluateResult(@PathVariable String userId) {
+        return "evaluate/result";
     }
 }

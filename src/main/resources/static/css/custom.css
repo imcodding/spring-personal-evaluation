@@ -115,6 +115,10 @@ td {
     height: 30px;
 }
 /* 그 외 */
+.bg-black-txt-white {
+    background: #333;
+    color: white;
+}
 .fLeft {
     float: left;
 }
