@@ -8,49 +8,80 @@
     <link th:href="@{/css/custom.css}" href="/css/custom.css" rel="stylesheet">
 </head>
 <body>
-    <div class="width-half fLeft">
-        <div>
-            <label><input type="text" class="form-control w-180 h-30 me-lg-2" placeholder="평가명을 입력해주세요."></label>
+<div class="width-half fLeft">
+    <div>
+        <form action="" method="post">
+            <label><input type="text" name="name" class="form-control w-180 h-30 me-lg-2"
+                          placeholder="평가명을 입력해주세요."></label>
             <label>시작 <input type="date" name="startDate" class="form-control w-140 h-30 me-lg-2 d-inline"></label>
             <label>종료 <input type="date" name="endDate" class="form-control w-140 h-30 d-inline"></label>
             <div class="mb-2 fRight" style="font-size: 13px">
                 <button type="submit" class="btn-basic btn-color-black">저장</button>
-                <button type="submit" class="btn-basic btn-color-grey">삭제</button>
+                <button type="button" class="btn-basic btn-color-grey" onclick="deleteDate()">삭제
+                </button>
             </div>
-        </div>
-        <table>
-            <tr class="title">
-                <td colspan="3" style="text-align: left">평가설정</td>
-            </tr>
-            <tr class="title">
-                <td>평가명</td>
-                <td>시작일</td>
-                <td>종료일</td>
-            </tr>
-            <tr>
-                <td>2022 상반기 평가</td>
-                <td>2022-07-01</td>
-                <td>2022-07-03</td>
-            </tr>
-        </table>
+        </form>
     </div>
-    <div class="width-half fRight">
-        <div class="mb-2 fRight" style="font-size: 13px; margin-bottom: 1px">
-            <button type="submit" class="btn-basic btn-color-black">저장</button>
-        </div>
-        <table>
-            <tr class="title">
-                <td colspan="2" class="title" style="text-align: left">평가율 설정</td>
-            </tr>
-            <tr class="title">
-                <td>평가기준</td>
-                <td>평가율</td>
-            </tr>
-            <tr>
-                <td>대표</td>
-                <td>20%</td>
-            </tr>
-        </table>
+    <table>
+        <tr class="title">
+            <td colspan="3" style="text-align: left">평가설정</td>
+        </tr>
+        <tr class="title">
+            <td>평가명</td>
+            <td>시작일</td>
+            <td>종료일</td>
+        </tr>
+        <tr class="row-hover" th:each="date : ${dateList}" onclick="selected(this)" th:id="${date.no}">
+            <td th:text="${date.name}"></td>
+            <td th:text="${date.startDate}"></td>
+            <td th:text="${date.endDate}"></td>
+        </tr>
+    </table>
+</div>
+<div class="width-half fRight">
+    <div class="mb-2 fRight" style="font-size: 13px; margin-bottom: 1px">
+        <button type="submit" class="btn-basic btn-color-black">저장</button>
     </div>
+    <table>
+        <tr class="title">
+            <td colspan="2" class="title" style="text-align: left">평가율 설정</td>
+        </tr>
+        <tr class="title">
+            <td>평가기준</td>
+            <td>평가율</td>
+        </tr>
+        <tr>
+            <td>대표</td>
+            <td>20%</td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
+<script>
+    let before = null;
+    let current = null;
+
+    function selected(obj) {
+        current = obj;
+        if (before) {
+            before.style.background = '#FFF'
+        }
+        obj.style.background = '#C7DDFF'
+        before = obj;
+    }
+
+    function deleteDate() {
+        if(current == null) return;
+        let settingNo = current.id;
+        let form = document.createElement('form');
+        let obj = document.createElement('input');
+
+        obj.setAttribute('settingNo', settingNo);
+        form.appendChild(obj);
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', '/evaluate/setting/date/' + settingNo + '/delete');
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>

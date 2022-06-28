@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 8px; /* 기본 적용. bootstrap 때문에 정의 */
+}
+/* 컨테이너 */
 .container {
     max-width: 560px;
 }
@@ -10,9 +16,14 @@
     border-radius: 5px;
     padding: 20px 20px 70px 20px;
 }
+/* 버튼 */
+button {
+    cursor: pointer;
+}
 .btn-color-black {
     background: #1e2121;
     border-color: #1e2121;
+    color: white;
 }
 .btn-color-black:hover {
     background: rgba(30, 33, 33, 0.85);
@@ -28,7 +39,105 @@
     border-color: rgba(238, 238, 238, 0.85);
     color: black;
 }
+.btn-basic {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* 메뉴 */
+.menu {
+    height: 60px;
+    background: rgb(40,40,42);
+    line-height: 60px;
+    border-radius: 5px
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: normal;
+    margin-left: 30px;
+}
+/* 테이블 */
+table {
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px #cbcaca;
+}
+td {
+    border: 1px solid #e8e8e8;
+    padding: 10px;
+}
+
+.row-hover:hover {
+    background-color: #ddebff;/*C7DDFF*/
+}
+.title td {
+    border: 1px solid #ffffff;
+    background: #ececec;
+}
+.content td {
+    width: 100px
+}
+/* 라디오 */
+.select {
+
+}
+.select input[type=radio]{
+    display: none;
+}
+.select input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+    width: 90px;
+    border: 1px solid #eeeeee;
+    line-height: 24px;
+    text-align: center;
+}
+.select input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.select input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+/* input */
+.w-180 {
+    width: 180px;
+}
+.w-140 {
+    width: 140px;
+}
+.h-30 {
+    height: 30px;
+}
+/* 그 외 */
+.bg-black-txt-white {
+    background: #333;
+    color: white;
+}
+.fLeft {
+    float: left;
+}
+.fRight {
+    float: right;
+}
+.width-half {
+    width: 49.5%;
+}
 .field-error {
     border-color: #dc3545;
     color: #dc3545;
+}
+.submit-dont {
+    padding: 5px 10px;
+    background: #ffe4e4;
+    border-radius: 5px;
 }
