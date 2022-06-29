@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 @Setter
 public class UserDto {
 
+    private Long no;
     private String userId;
     private String password;
     private String name;
@@ -25,6 +26,7 @@ public class UserDto {
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
+                .no(user.getNo())
                 .userId(user.getUserId())
                 .name(user.getName())
                 .dept(user.getDept())

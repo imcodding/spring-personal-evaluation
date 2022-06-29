@@ -48,6 +48,7 @@ public class SettingController {
 
     @GetMapping("/target")
     public String settingTargetForm(Model model) {
+        model.addAttribute("userList", settingService.getUserList());
         model.addAttribute("targetList", TestInitData.getTargetList());
         return "evaluate/setting/target";
     }
