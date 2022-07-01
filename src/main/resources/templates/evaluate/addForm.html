@@ -29,9 +29,9 @@
         <td>전문지식</td>
     </tr>
     <tr class="content" th:each="target : ${targetList}">
-        <td>홍길동</td>
-        <td></td>
-        <td></td>
+        <td th:text="${target.name}"></td>
+        <td th:text="${target.position}"></td>
+        <td th:text="${target.dept}"></td>
         <td>
             <div th:each="scoreCode : ${scoreCodeList}" class="select">
                 <input type="radio" th:value="${scoreCode.value}"  th:id="'scoreCode'+${scoreCodeStat.index}" name="selectCode">

@@ -2,7 +2,9 @@ package com.imcd.evaluation;
 
 import com.imcd.evaluation.code.*;
 import com.imcd.evaluation.dto.UserDto;
+import com.imcd.evaluation.entity.Target;
 import com.imcd.evaluation.entity.User;
+import com.imcd.evaluation.repository.TargetRepository;
 import com.imcd.evaluation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,7 @@ import java.util.List;
 public class TestInitData {
 
     private final UserRepository userRepository;
+    private final TargetRepository targetRepository;
 
     @PostConstruct
     public void init() {
@@ -23,6 +26,22 @@ public class TestInitData {
                 new User(1L, "test", "test",
                 "홍길동", "사원", "웹팀",
                 Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+        );
+        userRepository.save(
+                new User(2L, "test2", "test",
+                        "홍길동2", "사원", "웹팀",
+                        Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+        );
+        userRepository.save(
+                new User(3L, "test3", "test",
+                        "홍길동3", "사원", "웹팀",
+                        Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+        );
+        targetRepository.save(
+                new Target(1L, userRepository.findById(2L).get(), "test2", new ArrayList<>())
+        );
+        targetRepository.save(
+                new Target(2L, userRepository.findById(3L).get(), "test3", new ArrayList<>())
         );
     }
 
