@@ -105,8 +105,7 @@ td {
     color: #333;
 }
 .select input[type=radio]:checked+label{
-    background-color: #333;
-    color: #fff;
+    background-color: #d9f6ff;
 }
 /* input */
 .w-180 {

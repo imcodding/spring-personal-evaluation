@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
 <div style="float: right; margin-bottom: 10px">
-    <button class="btn-basic btn-color-black">저장</button>
+    <button class="btn-basic btn-color-black" onclick="save()">저장</button>
     <button class="btn-basic">취소</button>
 </div>
-<table>
+<table id="form_table">
     <tr class="title">
         <td rowspan="2">사용자</td>
         <td rowspan="2">직위</td>
@@ -28,25 +30,103 @@
         <td>리더십</td>
         <td>전문지식</td>
     </tr>
-    <tr class="content" th:each="target : ${targetList}">
+    <tr class="content" th:each="target : ${targetList}" th:id="${target.userId}">
         <td th:text="${target.name}"></td>
         <td th:text="${target.position}"></td>
         <td th:text="${target.dept}"></td>
         <td>
-            <div th:each="scoreCode : ${scoreCodeList}" class="select">
-                <input type="radio" th:value="${scoreCode.value}"  th:id="'scoreCode'+${scoreCodeStat.index}" name="selectCode">
-                <label th:for="'scoreCode'+${scoreCodeStat.index}" th:text="${scoreCode.displayName}">보통</label>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'ps_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'ps_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'ps_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
             </div>
         </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'fh_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'fh_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'fh_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'rp_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'rp_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'rp_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'hm_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'hm_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'hm_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'pc_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'pc_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'pc_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'ct_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'ct_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'ct_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'ls_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'ls_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'ls_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
+        <td>
+            <div class="select" th:each="code : ${scoreCodeList}">
+                <input type="radio"
+                       th:name="'ep_'+${target.userId}+'_'+${targetStat.index}"
+                       th:value="${code.value}"
+                       th:id="'ep_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="'ep_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+            </div>
+        </td>
         <td style="width: 300px"></td>
     </tr>
 </table>
+
 </body>
 </html>
+<script>
+    function save() {
+
+        let targetList = $('.content').get();
+        let list = ['ps', 'fh', 'rp', 'hm', 'pc', 'ct', 'ls', 'ep']
+
+        let dataList = [];
+        $.each(targetList, function (idx, item) {
+            let id = item.getAttribute('id');
+            $.each(list, function (i, type) {
+                let _name = list[i] + '_' + id + '_' + idx;
+                let params = {};
+                let value = $('input[type=radio][name="'+ _name +'"]:checked').val();
+                
+            })
+        })
+    }
+</script>
