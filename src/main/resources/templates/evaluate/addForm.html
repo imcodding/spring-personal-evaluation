@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/api.js"></script>
 </head>
 <body>
 
@@ -20,90 +21,23 @@
         <td colspan="4">능력</td>
         <td rowspan="2">의견사항</td>
     </tr>
+    <!--/* 평가항목 */-->
     <tr class="title">
-        <td>열정</td>
-        <td>신의</td>
-        <td>책임</td>
-        <td>조화</td>
-        <td>업무처리</td>
-        <td>고객대응</td>
-        <td>리더십</td>
-        <td>전문지식</td>
+        <td th:each="type : ${scoreTypeList}" th:text="${type.displayName}">열정</td>
     </tr>
+    <!--/* 점수항목 */-->
     <tr class="content" th:each="target : ${targetList}" th:id="${target.userId}">
         <td th:text="${target.name}"></td>
         <td th:text="${target.position}"></td>
         <td th:text="${target.dept}"></td>
-        <td>
+        <td th:each="type : ${scoreTypeList}">
             <div class="select" th:each="code : ${scoreCodeList}">
                 <input type="radio"
-                       th:name="'ps_'+${target.userId}+'_'+${targetStat.index}"
+                       th:name="${type.code}+'_'+${target.userId}+'_'+${targetStat.index}"
                        th:value="${code.value}"
-                       th:id="'ps_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'ps_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'fh_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'fh_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'fh_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'rp_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'rp_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'rp_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'hm_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'hm_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'hm_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'pc_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'pc_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'pc_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'ct_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'ct_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'ct_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'ls_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'ls_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'ls_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
-            </div>
-        </td>
-        <td>
-            <div class="select" th:each="code : ${scoreCodeList}">
-                <input type="radio"
-                       th:name="'ep_'+${target.userId}+'_'+${targetStat.index}"
-                       th:value="${code.value}"
-                       th:id="'ep_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="'ep_'+${target.userId}+'_'+${codeStat.index}" th:text="${code.displayName}">보통</label>
+                       th:id="${type.code}+'_'+${target.userId}+'_'+${codeStat.index}">
+                <label th:for="${type.code}+'_'+${target.userId}+'_'+${codeStat.index}"
+                       th:text="${code.displayName}">보통</label>
             </div>
         </td>
         <td style="width: 300px"></td>
@@ -113,20 +47,33 @@
 </body>
 </html>
 <script>
+    let scoreType;
+
     function save() {
 
         let targetList = $('.content').get();
-        let list = ['ps', 'fh', 'rp', 'hm', 'pc', 'ct', 'ls', 'ep']
 
-        let dataList = [];
         $.each(targetList, function (idx, item) {
-            let id = item.getAttribute('id');
-            $.each(list, function (i, type) {
-                let _name = list[i] + '_' + id + '_' + idx;
-                let params = {};
-                let value = $('input[type=radio][name="'+ _name +'"]:checked').val();
-                
+            let targetId = item.getAttribute('id');
+
+            $.each(scoreType, function (i, type) {
+                let _name = type.code + '_' + targetId + '_' + idx;
+                let _value = $('input[type=radio][name="'+ _name +'"]:checked').val();
+
             })
         })
     }
+
+    function setScoreType() {
+        API.get('/evaluate/scoreType', {
+            data: {},
+            success: function (result) {
+                scoreType = result;
+            }
+        })
+    }
+
+$(function (){
+    setScoreType();
+})
 </script>

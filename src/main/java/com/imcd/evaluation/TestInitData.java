@@ -75,6 +75,19 @@ public class TestInitData {
         return scoreList;
     }
 
+    public static List<SelectCode> getScoreTypeList() {
+        List<SelectCode> typeList = new ArrayList<>();
+        typeList.add(new SelectCode("passionScore", "열정"));
+        typeList.add(new SelectCode("faithScore", "신념"));
+        typeList.add(new SelectCode("responsibilityScore", "책임감"));
+        typeList.add(new SelectCode("harmonyScore", "조화"));
+        typeList.add(new SelectCode("processingScore", "업무처리"));
+        typeList.add(new SelectCode("customerScore", "고객대응"));
+        typeList.add(new SelectCode("leadershipScore", "리더십"));
+        typeList.add(new SelectCode("expertScore", "전문지식"));
+        return typeList;
+    }
+
     public static List<UserDto> getTargetList() {
         List<UserDto> users = new ArrayList<>();
         users.add(new UserDto());
