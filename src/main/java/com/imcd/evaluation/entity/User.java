@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,5 +35,14 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Target> targets = new ArrayList<>();
+
+    public void addTarget(Target target) {
+        targets.add(target);
+        target.setUser(this);
+    }
+
+    public void evaluate(User user, Target ...targets) {
+
+    }
 }
 

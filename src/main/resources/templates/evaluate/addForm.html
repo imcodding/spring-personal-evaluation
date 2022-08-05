@@ -56,11 +56,15 @@
         $.each(targetList, function (idx, item) {
             let targetId = item.getAttribute('id');
 
+            let params = {};
             $.each(scoreType, function (i, type) {
                 let _name = type.code + '_' + targetId + '_' + idx;
                 let _value = $('input[type=radio][name="'+ _name +'"]:checked').val();
 
+                params.targetId = targetId;
+                params[type.code] = Number(_value);
             })
+            console.log('params', params)
         })
     }
 
