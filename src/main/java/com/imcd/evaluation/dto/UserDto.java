@@ -8,6 +8,8 @@ import lombok.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -23,6 +25,7 @@ public class UserDto {
     private String position;
     private String dept;
     private Role role;
+    private List<TargetDto> targets = new ArrayList<>();
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
@@ -36,8 +39,9 @@ public class UserDto {
 
     public static User toEntity(UserDto userDto) {
         return User.builder()
+                .no(userDto.getNo())
                 .userId(userDto.getUserId())
-                .password(passwordSHA256(userDto.getPassword()))
+//                .password(passwordSHA256(userDto.getPassword()))
                 .name(userDto.getName())
                 .dept(userDto.getDept())
                 .position(userDto.getPosition())

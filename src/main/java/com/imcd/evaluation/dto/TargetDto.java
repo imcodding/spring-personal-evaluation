@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -16,14 +17,14 @@ import java.util.List;
 public class TargetDto {
 
     private Long targetNo;
-    private User user;
+    private UserDto user;
     private String targetId;
     private List<Score> scores = new ArrayList<>();
 
     public static Target toEntity(TargetDto targetDto) {
         return Target.builder()
                 .targetId(targetDto.getTargetId())
-                .user(targetDto.getUser())
+                .user(UserDto.toEntity(targetDto.getUser()))
                 .scores(targetDto.getScores())
                 .build();
     }
@@ -31,9 +32,15 @@ public class TargetDto {
     public static TargetDto fromEntity(Target target) {
         return TargetDto.builder()
                 .targetNo(target.getNo())
-                .user(target.getUser())
+                .user(UserDto.fromEntity(target.getUser()))
                 .targetId(target.getTargetId())
                 .scores(target.getScores())
                 .build();
+    }
+
+    public static List<Target> toEntityList(List<TargetDto> list) {
+        return list.stream()
+                .map(TargetDto::toEntity)
+                .collect(Collectors.toList());
     }
 }

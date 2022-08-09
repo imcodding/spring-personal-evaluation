@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="/js/api.js"></script>
 </head>
 
 <body>
@@ -21,7 +23,7 @@
                 <td>이름</td>
                 <td>직위</td>
             </tr>
-            <tr class="content row-hover" th:each="user : ${userList}" th:id="${user.no}">
+            <tr class="content row-hover" th:each="user : ${userList}" th:id="${user.no}" onclick="selected(this)">
                 <td th:text="${user.dept}"></td>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.position}"></td>
@@ -44,7 +46,7 @@
                 <td>2</td>
                 <td>3</td>
                 <td>
-                    <input type="checkbox">
+                    <input th:id="targetStat" type="checkbox">
                 </td>
             </tr>
         </table>
@@ -52,5 +54,23 @@
 </body>
 </html>
 <script>
+    let userNo;
+    function selected(obj) {
+        userNo = obj.id;
 
+        let list = [];
+        list.push({targetId: 'test2'})
+        list.push({targetId: 'test3'})
+
+        let params = {};
+        params.targets = list;
+        params.no = userNo;
+
+        API.post('/evaluate/setting/target', {
+            data: params,
+            success: function (result) {
+                console.log('result', result)
+            }
+        })
+    }
 </script>

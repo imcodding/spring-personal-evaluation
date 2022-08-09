@@ -1,8 +1,11 @@
 package com.imcd.evaluation.service;
 
 import com.imcd.evaluation.dto.SettingDto;
+import com.imcd.evaluation.dto.TargetDto;
 import com.imcd.evaluation.dto.UserDto;
 import com.imcd.evaluation.entity.Setting;
+import com.imcd.evaluation.entity.Target;
+import com.imcd.evaluation.entity.User;
 import com.imcd.evaluation.repository.SettingRepository;
 import com.imcd.evaluation.repository.TargetRepository;
 import com.imcd.evaluation.repository.UserRepository;
@@ -55,5 +58,17 @@ public class SettingService {
         return userRepository.findAll().stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public void saveTarget(UserDto userDto) {
+        Optional<User> user = userRepository.findById(userDto.getNo());
+        if(user.isPresent()) {
+            UserDto dto = UserDto.fromEntity(user.get());
+            for(TargetDto targetDto : userDto.getTargets()) {
+                targetDto.setUser(dto);
+            }
+        }
+        List<Target> targets = TargetDto.toEntityList(userDto.getTargets());
+        targetRepository.saveAll(targets);
     }
 }

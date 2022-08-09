@@ -2,6 +2,10 @@ package com.imcd.evaluation.controller;
 
 import com.imcd.evaluation.TestInitData;
 import com.imcd.evaluation.dto.SettingDto;
+import com.imcd.evaluation.dto.TargetDto;
+import com.imcd.evaluation.dto.UserDto;
+import com.imcd.evaluation.entity.Target;
+import com.imcd.evaluation.entity.User;
 import com.imcd.evaluation.service.SettingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,8 +61,8 @@ public class SettingController {
     }
 
     @PostMapping("/target")
-    public void createTarget(@RequestParam String userId) {
-
+    public void createTarget(@RequestBody UserDto userDto) {
+        settingService.saveTarget(userDto);
     }
 
     public void checkValidation(SettingDto settingDto, BindingResult bindingResult) {
