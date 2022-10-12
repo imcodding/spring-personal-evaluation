@@ -27,7 +27,7 @@ public class LoginService {
         userRepository.save(UserDto.toEntity(userDto));
     }
 
-    public void login(UserDto userDto, HttpServletResponse response) {
+    public UserDto login(UserDto userDto, HttpServletResponse response) {
         Optional<User> user = userRepository.findUserByUserIdAndPassword(
                 userDto.getUserId(),
                 userDto.getPassword()
@@ -42,5 +42,7 @@ public class LoginService {
             Cookie cookie = new Cookie("JWT_TOKEN", token.get());
             response.addCookie(cookie);
         }
+
+        return UserDto.fromEntity(user.get());
     }
 }

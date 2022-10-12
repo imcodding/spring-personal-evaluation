@@ -5,12 +5,12 @@
 </head>
 <body>
 
-<th:block th:if="${role} == 'admin'">
+<div th:if="${#strings.equals(role, 'ADMIN')}">
     <div th:replace="layout/navAdmin :: nav_admin"></div>
-</th:block>
-<th:block th:unless="${role} == 'admin'">
+</div>
+<div th:unless="${#strings.equals(role, 'ADMIN')}">
     <div th:replace="layout/nav :: nav"></div>
-</th:block>
+</div>
 
 </body>
 </html>

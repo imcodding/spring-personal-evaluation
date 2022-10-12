@@ -34,6 +34,7 @@ public class UserDto {
                 .name(user.getName())
                 .dept(user.getDept())
                 .position(user.getPosition())
+                .role(user.getRole())
                 .build();
     }
 
