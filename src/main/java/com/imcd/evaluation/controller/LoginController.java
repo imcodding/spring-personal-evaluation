@@ -1,8 +1,10 @@
 package com.imcd.evaluation.controller;
 
 import com.imcd.evaluation.TestInitData;
+import com.imcd.evaluation.code.Role;
 import com.imcd.evaluation.dto.UserDto;
 import com.imcd.evaluation.entity.User;
+import com.imcd.evaluation.jwt.provider.JwtAuthProvider;
 import com.imcd.evaluation.repository.UserRepository;
 import com.imcd.evaluation.service.LoginService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class LoginController {
 
     private final LoginService loginService;
     private final UserRepository userRepository;
+    private final JwtAuthProvider jwtAuthProvider;
 
     @GetMapping({"/", "/login"})
     public String loginForm() {
@@ -35,9 +38,14 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute UserDto userDto, HttpServletResponse response) {
-        loginService.login(userDto, response);
-        return "home";
+    public String login(@ModelAttribute UserDto userDto, HttpServletResponse response, Model model) {
+        UserDto user = loginService.login(userDto, response);
+        model.addAttribute("role", user.getRole());
+        if(user.getRole().equals(Role.ADMIN)) {
+            return "evaluate/setting/date";
+        } else {
+            return "evaluate/addForm";
+        }
     }
 
     @GetMapping("/signup")

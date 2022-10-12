@@ -146,3 +146,7 @@ td {
     height: 150px;
     resize: none;
 }
+.mt-mb-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
