@@ -25,5 +25,17 @@ public class TargetService {
 
     public List<User> getTargetList() {
         return targetRepository.findTargetByUser();
+
+    }
+
+//    public List<TargetDto> getTargets() {
+//        return targetRepository.findTargetList()
+//                .stream()
+//                .map(TargetDto::fromEntity)
+//                .collect(Collectors.toList());
+//    }
+    public List<Target> getTargets() {
+        List<Target> targetList = targetRepository.findAll();
+        return targetRepository.findTargetList();
     }
 }

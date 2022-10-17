@@ -30,7 +30,6 @@ public class LoginController {
 
     private final LoginService loginService;
     private final UserRepository userRepository;
-    private final JwtAuthProvider jwtAuthProvider;
 
     @GetMapping({"/", "/login"})
     public String loginForm() {
@@ -42,9 +41,9 @@ public class LoginController {
         UserDto user = loginService.login(userDto, response);
         model.addAttribute("role", user.getRole());
         if(user.getRole().equals(Role.ADMIN)) {
-            return "evaluate/setting/date";
+            return "redirect:/evaluate/setting/date";
         } else {
-            return "evaluate/addForm";
+            return "redirect:/evaluate/form";
         }
     }
 

@@ -46,7 +46,7 @@
                 <td>2</td>
                 <td>3</td>
                 <td>
-                    <input th:id="targetStat" type="checkbox">
+                    <input name="isEvaluate" th:id="${target.userId}" type="checkbox">
                 </td>
             </tr>
         </table>
@@ -59,17 +59,25 @@
         userNo = obj.id;
 
         let list = [];
-        list.push({targetId: 'test2'})
-        list.push({targetId: 'test3'})
-
         let params = {};
-        params.targets = list;
+
+        let query = $('input[name="isEvaluate"]:checked');
+        $.each(query, function (idx, item) {
+            list.push({ targetId: item.id })
+        })
         params.no = userNo;
 
         API.post('/evaluate/setting/target', {
             data: params,
             success: function (result) {
                 console.log('result', result)
+            }
+        })
+
+        API.get('/evaluate/targets', {
+            data: {},
+            success: function (result) {
+                console.log('get', result)
             }
         })
     }

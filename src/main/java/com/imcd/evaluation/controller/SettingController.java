@@ -7,6 +7,7 @@ import com.imcd.evaluation.dto.UserDto;
 import com.imcd.evaluation.entity.Target;
 import com.imcd.evaluation.entity.User;
 import com.imcd.evaluation.service.SettingService;
+import com.imcd.evaluation.service.TargetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class SettingController {
 
     private final SettingService settingService;
+    private final TargetService targetService;
 
     @GetMapping("/date")
     public String settingDateForm(Model model) {
@@ -56,7 +58,7 @@ public class SettingController {
     @GetMapping("/target")
     public String settingTargetForm(Model model) {
         model.addAttribute("userList", settingService.getUserList());
-        model.addAttribute("targetList", TestInitData.getTargetList());
+        model.addAttribute("targetList", targetService.getTargetList());
         return "evaluate/setting/target";
     }
 

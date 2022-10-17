@@ -35,13 +35,13 @@ public class TestInitData {
         userRepository.save(
                 new User(3L, "test3", "test",
                         "홍길동3", "사원", "웹팀",
-                        Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+                        Status.DONT, Role.ADMIN, new ArrayList<>())
         );
         targetRepository.save(
                 new Target(1L, userRepository.findById(2L).get(), "test2", new ArrayList<>())
         );
         targetRepository.save(
-                new Target(2L, userRepository.findById(3L).get(), "test3", new ArrayList<>())
+                new Target(2L, userRepository.findById(2L).get(), "test3", new ArrayList<>())
         );
     }
 

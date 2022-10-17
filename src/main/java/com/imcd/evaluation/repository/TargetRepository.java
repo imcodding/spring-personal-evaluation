@@ -11,4 +11,8 @@ public interface TargetRepository extends JpaRepository<Target, Long> {
 
     @Query("select u from User u, Target t where u.userId = t.targetId")
     List<User> findTargetByUser();
+
+    @Query("select t from User u left join Target t on u.userId = t.targetId")
+    List<Target> findTargetList();
+
 }
