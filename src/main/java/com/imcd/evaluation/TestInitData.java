@@ -38,10 +38,12 @@ public class TestInitData {
                         Status.DONT, Role.ADMIN, new ArrayList<>())
         );
         targetRepository.save(
-                new Target(1L, userRepository.findById(2L).get(), "test2", new ArrayList<>())
+//                new Target(1L, userRepository.findById(2L).get(), "test2", new ArrayList<>())
+                new Target(1L, userRepository.findById(2L).get(), "test2", null)
         );
         targetRepository.save(
-                new Target(2L, userRepository.findById(2L).get(), "test3", new ArrayList<>())
+//                new Target(2L, userRepository.findById(2L).get(), "test3", new ArrayList<>())
+                new Target(2L, userRepository.findById(2L).get(), "test3", null)
         );
     }
 

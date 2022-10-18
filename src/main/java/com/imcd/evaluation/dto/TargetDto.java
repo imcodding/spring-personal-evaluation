@@ -2,10 +2,8 @@ package com.imcd.evaluation.dto;
 
 import com.imcd.evaluation.entity.Score;
 import com.imcd.evaluation.entity.Target;
-import com.imcd.evaluation.entity.User;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +17,13 @@ public class TargetDto {
     private Long targetNo;
     private UserDto user;
     private String targetId;
-    private List<Score> scores = new ArrayList<>();
+    private Score score;
 
     public static Target toEntity(TargetDto targetDto) {
         return Target.builder()
                 .targetId(targetDto.getTargetId())
                 .user(UserDto.toEntity(targetDto.getUser()))
-                .scores(targetDto.getScores())
+                .score(targetDto.getScore())
                 .build();
     }
 
@@ -34,7 +32,7 @@ public class TargetDto {
                 .targetNo(target.getNo())
                 .user(UserDto.fromEntity(target.getUser()))
                 .targetId(target.getTargetId())
-                .scores(target.getScores())
+                .score(target.getScore())
                 .build();
     }
 

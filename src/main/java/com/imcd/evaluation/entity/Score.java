@@ -20,7 +20,7 @@ public class Score {
     @Column(name = "score_no")
     private Long no;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "target_no")
     private Target target;
 

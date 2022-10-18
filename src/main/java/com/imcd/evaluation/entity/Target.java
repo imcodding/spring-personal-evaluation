@@ -24,6 +24,6 @@ public class Target {
 
     private String targetId;
 
-    @OneToMany(mappedBy = "target")
-    private List<Score> scores = new ArrayList<>();
+    @OneToOne(mappedBy = "target")
+    private Score score;
 }
