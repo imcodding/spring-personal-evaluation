@@ -25,7 +25,7 @@
         <td th:each="type : ${scoreTypeList}" th:text="${type.displayName}">열정</td>
     </tr>
     <!--/* 점수항목 */-->
-    <tr class="content" th:each="target : ${targetList}" th:id="${target.userId}">
+    <tr class="content" th:each="target : ${targetList}" th:id="${target.userId} + '_' + ${target.no}">
         <td th:text="${target.name}"></td>
         <td th:text="${target.position}"></td>
         <td th:text="${target.dept}"></td>
@@ -48,22 +48,39 @@
 <script>
     let scoreType;
 
+
     function save() {
 
+        let targetScores = [];
         let targetList = $('.content').get();
 
         $.each(targetList, function (idx, item) {
-            let targetId = item.getAttribute('id');
+            let id = item.getAttribute('id');
+            let targetId = id.split('_')[0];
+            let targetNo = id.split('_')[1];
 
             let params = {};
+            let scores = {};
             $.each(scoreType, function (i, type) {
                 let _name = type.code + '_' + targetId + '_' + idx;
                 let _value = $('input[type=radio][name="'+ _name +'"]:checked').val();
 
                 params.targetId = targetId;
-                params[type.code] = Number(_value);
+                // params[type.code] = Number(_value);
+                scores[type.code] = Number(_value);
+                params.targetNo = targetNo;
             })
-            console.log('params', params)
+
+            params.score = scores
+            targetScores.push(params)
+        })
+        console.log('targetScores',targetScores)
+
+        API.post('/evaluate/save', {
+            data: { targetList : targetScores },
+            success: function (result) {
+
+            }
         })
     }
 
