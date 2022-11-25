@@ -9,6 +9,8 @@ import com.imcd.evaluation.entity.User;
 import com.imcd.evaluation.service.SettingService;
 import com.imcd.evaluation.service.TargetService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,19 +30,11 @@ public class SettingController {
     private final SettingService settingService;
     private final TargetService targetService;
 
-    @GetMapping("/date")
-    public String settingDateForm(Model model) {
-        model.addAttribute("dateList", settingService.getDateList());
-        return "evaluate/setting/date";
-    }
-
+    /*===============================================
+        평가기간설정
+    ===============================================*/
     @PostMapping("/date")
-    public String createDate(@ModelAttribute("setting") SettingDto settingDto, BindingResult bindingResult, Model model) {
-//        checkValidation(settingDto, bindingResult);
-//        if(bindingResult.hasErrors()) {
-//            model.addAttribute("dateList", settingService.getDateList());
-//            return "date";
-//        }
+    public String addDate(@ModelAttribute("setting") SettingDto settingDto) {
         settingService.saveDate(settingDto);
         return "redirect:/evaluate/setting/date";
     }
@@ -55,17 +50,18 @@ public class SettingController {
         return "redirect:/evaluate/setting/date";
     }
 
-    @GetMapping("/target")
-    public String settingTargetForm(Model model) {
-        model.addAttribute("userList", settingService.getUserList());
-        model.addAttribute("targetList", targetService.getTargetList());
-        return "evaluate/setting/target";
-    }
-
+    /*===============================================
+        평가대상설정
+    ===============================================*/
     @PostMapping("/target")
-    public void createTarget(@RequestBody UserDto userDto) {
+    public void addTarget(@RequestBody UserDto userDto) {
         settingService.saveTarget(userDto);
     }
+//    @GetMapping("/target/list")
+//    @ResponseBody
+//    public List<UserDto> getTargetList(Long userNo) {
+//        return targetService.getTargetList(userNo);
+//    }
 
     public void checkValidation(SettingDto settingDto, BindingResult bindingResult) {
         if(!StringUtils.hasText(settingDto.getName())) {

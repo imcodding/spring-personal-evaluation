@@ -25,7 +25,10 @@ public class User {
     private String password;
     private String name;
     private String position;
-    private String dept;
+
+    @ManyToOne
+    @JoinColumn(name = "dept_no")
+    private Dept dept;
 
     @Enumerated(EnumType.STRING)
     private Status submitStatus;
@@ -36,13 +39,5 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Target> targets = new ArrayList<>();
 
-    public void addTarget(Target target) {
-        targets.add(target);
-        target.setUser(this);
-    }
-
-    public void evaluate(User user, Target ...targets) {
-
-    }
 }
 

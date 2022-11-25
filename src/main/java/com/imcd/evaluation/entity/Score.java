@@ -20,9 +20,11 @@ public class Score {
     @Column(name = "score_no")
     private Long no;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_no")
     private Target target;
+
+    private Long targetNo;
 
     private int passionScore;
     private int faithScore;

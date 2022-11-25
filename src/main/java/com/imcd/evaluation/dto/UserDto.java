@@ -2,6 +2,7 @@ package com.imcd.evaluation.dto;
 
 import com.imcd.evaluation.code.Role;
 import com.imcd.evaluation.code.Status;
+import com.imcd.evaluation.entity.Dept;
 import com.imcd.evaluation.entity.User;
 import lombok.*;
 
@@ -23,7 +24,7 @@ public class UserDto {
     private String password;
     private String name;
     private String position;
-    private String dept;
+    private DeptDto dept;
     private Role role;
     private List<TargetDto> targets = new ArrayList<>();
 
@@ -32,7 +33,7 @@ public class UserDto {
                 .no(user.getNo())
                 .userId(user.getUserId())
                 .name(user.getName())
-                .dept(user.getDept())
+                .dept(DeptDto.fromEntity(user.getDept()))
                 .position(user.getPosition())
                 .role(user.getRole())
                 .build();
@@ -44,7 +45,7 @@ public class UserDto {
                 .userId(userDto.getUserId())
 //                .password(passwordSHA256(userDto.getPassword()))
                 .name(userDto.getName())
-                .dept(userDto.getDept())
+                .dept(DeptDto.toEntity(userDto.getDept()))
                 .position(userDto.getPosition())
                 .role(Role.EMPLOYEE)
                 .submitStatus(Status.DONT)

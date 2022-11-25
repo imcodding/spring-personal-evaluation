@@ -20,4 +20,11 @@ public class UserService {
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public List<UserDto> getTargetList(Long deptNo, Long userNo) {
+        return userRepository.findTarget(deptNo, userNo)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

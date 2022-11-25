@@ -1,11 +1,13 @@
 package com.imcd.evaluation.service;
 
+import com.imcd.evaluation.code.ErrorCode;
 import com.imcd.evaluation.dto.SettingDto;
 import com.imcd.evaluation.dto.TargetDto;
 import com.imcd.evaluation.dto.UserDto;
 import com.imcd.evaluation.entity.Setting;
 import com.imcd.evaluation.entity.Target;
 import com.imcd.evaluation.entity.User;
+import com.imcd.evaluation.exception.ErrorException;
 import com.imcd.evaluation.repository.SettingRepository;
 import com.imcd.evaluation.repository.TargetRepository;
 import com.imcd.evaluation.repository.UserRepository;
@@ -61,14 +63,14 @@ public class SettingService {
     }
 
     public void saveTarget(UserDto userDto) {
-        Optional<User> user = userRepository.findById(userDto.getNo());
-        if(user.isPresent()) {
-            UserDto dto = UserDto.fromEntity(user.get());
-            for(TargetDto targetDto : userDto.getTargets()) {
-                targetDto.setUser(dto);
-            }
+        User user = userRepository.findById(userDto.getNo()).orElseThrow(
+                () -> new ErrorException(ErrorCode.NO_USER)
+        );
+        UserDto dto = UserDto.fromEntity(user);
+        for(TargetDto targetDto : userDto.getTargets()) {
+            targetDto.setUser(dto);
         }
-        List<Target> targets = TargetDto.toEntityList(userDto.getTargets());
-        targetRepository.saveAll(targets);
+//        List<Target> targets = TargetDto.toEntityList(userDto.getTargets());
+//        targetRepository.saveAll(targets);
     }
 }

@@ -7,9 +7,9 @@
 
 <body>
 <div th:replace="layout/nav :: nav"></div>
-<div class="fRight mt-mb-10">
-    <button class="btn-basic btn-color-black" onclick="save()">저장</button>
-    <button class="btn-basic">취소</button>
+<div class="fRight" style="margin-bottom: 10px">
+    <button class="btn-basic" onclick="save()">저장</button>
+    <button class="btn-basic btn-color-black">제출</button>
 </div>
 <table id="form_table">
     <tr class="title">
@@ -25,17 +25,17 @@
         <td th:each="type : ${scoreTypeList}" th:text="${type.displayName}">열정</td>
     </tr>
     <!--/* 점수항목 */-->
-    <tr class="content" th:each="target : ${targetList}" th:id="${target.userId} + '_' + ${target.no}">
+    <tr class="content" th:each="target : ${targetList}" th:id="${target.targetId} + '_' + ${target.no}">
         <td th:text="${target.name}"></td>
         <td th:text="${target.position}"></td>
         <td th:text="${target.dept}"></td>
         <td th:each="type : ${scoreTypeList}">
             <div class="select" th:each="code : ${scoreCodeList}">
                 <input type="radio"
-                       th:name="${type.code}+'_'+${target.userId}+'_'+${targetStat.index}"
+                       th:name="${type.code}+'_'+${target.targetId}+'_'+${targetStat.index}"
                        th:value="${code.value}"
-                       th:id="${type.code}+'_'+${target.userId}+'_'+${codeStat.index}">
-                <label th:for="${type.code}+'_'+${target.userId}+'_'+${codeStat.index}"
+                       th:id="${type.code}+'_'+${target.targetId}+'_'+${codeStat.index}">
+                <label th:for="${type.code}+'_'+${target.targetId}+'_'+${codeStat.index}"
                        th:text="${code.displayName}">보통</label>
             </div>
         </td>
@@ -47,7 +47,6 @@
 </html>
 <script>
     let scoreType;
-
 
     function save() {
 
@@ -89,11 +88,32 @@
             data: {},
             success: function (result) {
                 scoreType = result;
+                setDefaultScore();
             }
         })
     }
 
+    function setDefaultScore() {
+        let targetList = $('.content').get();
+
+        $.each(targetList, function (idx, item) {
+            let id = item.getAttribute('id');
+            let targetId = id.split('_')[0];
+
+            $.each(scoreType, function (i, type) {
+                let _name = type.code + '_' + targetId + '_' + 2;
+
+                $('#' + _name).attr('checked', true)
+            })
+        })
+    }
+
+    function getTarget() {
+
+    }
+
 $(function (){
+    getTarget();
     setScoreType();
 })
 </script>

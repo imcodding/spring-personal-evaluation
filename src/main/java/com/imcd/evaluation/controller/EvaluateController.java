@@ -5,6 +5,7 @@ import com.imcd.evaluation.code.SelectCode;
 import com.imcd.evaluation.dto.TargetDto;
 import com.imcd.evaluation.entity.Target;
 import com.imcd.evaluation.service.TargetService;
+import com.imcd.evaluation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.Select;
 import org.springframework.stereotype.Controller;
@@ -19,23 +20,13 @@ import java.util.List;
 public class EvaluateController {
 
     private final TargetService targetService;
+    private final UserService userService;
 
     @GetMapping("/form")
     public String evaluateForm(Model model) {
         model.addAttribute("scoreCodeList", TestInitData.getScoreSelectList());
         model.addAttribute("scoreTypeList", TestInitData.getScoreTypeList());
-        model.addAttribute("targetList", targetService.getTargetList());
         return "evaluate/addForm";
-    }
-
-    @GetMapping("/status")
-    public String evaluateStatus() {
-        return "evaluate/status";
-    }
-
-    @GetMapping("/result/{userId}")
-    public String evaluateResult(@PathVariable String userId) {
-        return "evaluate/result";
     }
 
     @GetMapping("/scoreType")
@@ -44,13 +35,14 @@ public class EvaluateController {
         return TestInitData.getScoreTypeList();
     }
 
-    @GetMapping("/targets")
-    @ResponseBody
-    public List<Target> getTargets() { return targetService.getTargets(); }
+//    @GetMapping("/targets")
+//    @ResponseBody
+//    public List<Target> getTargets() { return targetService.getTargets(); }
 
 
     @PostMapping("/save")
     public void saveForm(@RequestBody TargetDto targetDto) {
 
     }
+
 }

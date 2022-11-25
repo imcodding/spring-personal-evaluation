@@ -36,9 +36,9 @@ public class TargetDto {
                 .build();
     }
 
-    public static List<Target> toEntityList(List<TargetDto> list) {
-        return list.stream()
-                .map(TargetDto::toEntity)
-                .collect(Collectors.toList());
-    }
+//    public static List<Target> toEntityList(List<TargetDto> list) {
+//        return list.stream()
+//                .map(TargetDto::toEntity)
+//                .collect(Collectors.toList());
+//    }
 }

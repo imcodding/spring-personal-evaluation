@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:replace="layout/navAdmin :: nav_admin"></div>
-<div class="width-half fLeft mt-2">
+<div class="width-half fLeft">
     <div>
         <form action="" method="post">
             <label><input type="text" name="name" class="form-control w-180 h-30 me-lg-2"
@@ -39,7 +39,7 @@
     </table>
 </div>
 <div class="width-half fRight">
-    <div class="mb-2 mt-2 fRight" style="font-size: 13px; margin-bottom: 1px">
+    <div class="mb-2 fRight" style="font-size: 13px; margin-bottom: 1px">
         <button type="submit" class="btn-basic btn-color-black">저장</button>
     </div>
     <table>
@@ -65,7 +65,7 @@
     function selected(obj) {
         current = obj;
         if (before) {
-            before.style.background = '#FFF'
+            before.style.background = ''
         }
         obj.style.background = '#C7DDFF'
         before = obj;
@@ -84,4 +84,5 @@
         document.body.appendChild(form);
         form.submit();
     }
+
 </script>

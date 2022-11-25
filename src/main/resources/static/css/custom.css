@@ -51,7 +51,8 @@ button {
     height: 60px;
     background: rgb(40,40,42);
     line-height: 60px;
-    border-radius: 5px
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 .menu a {
     color: white;

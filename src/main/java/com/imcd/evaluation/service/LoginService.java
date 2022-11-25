@@ -28,21 +28,22 @@ public class LoginService {
     }
 
     public UserDto login(UserDto userDto, HttpServletResponse response) {
-        Optional<User> user = userRepository.findUserByUserIdAndPassword(
+
+        User user = userRepository.findUserByUserIdAndPassword(
                 userDto.getUserId(),
                 userDto.getPassword()
-//                UserDto.passwordSHA256(userDto.getPassword())
-        );
+                //UserDto.passwordSHA256(userDto.getPassword())
+        ).orElseThrow(() -> new ErrorException(ErrorCode.NO_USER));
 
-        if(user.isEmpty()) throw new ErrorException(ErrorCode.NO_USER);
-
-        Optional<String> token = jwtAuthProvider.createJwtAuthToken(user.get().getUserId(), user.get().getRole());
+        Optional<String> token = jwtAuthProvider.createJwtAuthToken(user.getUserId(), user.getRole());
 
         if(token.isPresent()) {
             Cookie cookie = new Cookie("JWT_TOKEN", token.get());
             response.addCookie(cookie);
         }
 
-        return UserDto.fromEntity(user.get());
+        return UserDto.builder()
+                .role(user.getRole())
+                .build();
     }
 }

@@ -89,9 +89,9 @@ public class LoginController {
         if(!StringUtils.hasText(userDto.getName())) {
             validation(bindingResult, "name", userDto.getName(), "required.user.name");
         }
-        if(!StringUtils.hasText(userDto.getDept())) {
-            validation(bindingResult, "dept", userDto.getDept(), "required.user.dept");
-        }
+//        if(!StringUtils.hasText(userDto.getDept())) {
+//            validation(bindingResult, "dept", userDto.getDept(), "required.user.dept");
+//        }
         if(!StringUtils.hasText(userDto.getPosition())) {
             validation(bindingResult, "position", userDto.getPosition(), "required.user.position");
         }

@@ -1,9 +1,11 @@
 package com.imcd.evaluation;
 
 import com.imcd.evaluation.code.*;
+import com.imcd.evaluation.dto.DeptDto;
 import com.imcd.evaluation.dto.UserDto;
-import com.imcd.evaluation.entity.Target;
+import com.imcd.evaluation.entity.Dept;
 import com.imcd.evaluation.entity.User;
+import com.imcd.evaluation.repository.DeptRepository;
 import com.imcd.evaluation.repository.TargetRepository;
 import com.imcd.evaluation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -19,32 +22,57 @@ public class TestInitData {
 
     private final UserRepository userRepository;
     private final TargetRepository targetRepository;
+    private final DeptRepository deptRepository;
 
     @PostConstruct
     public void init() {
+
+        Dept dept = Dept.builder().name("웹플랫폼팀").build();
+        deptRepository.save(dept);
+        deptRepository.save(Dept.builder().name("서버1팀").build());
+        deptRepository.save(Dept.builder().name("서버2팀").build());
+        deptRepository.save(Dept.builder().name("디자인팀").build());
+
         userRepository.save(
-                new User(1L, "test", "test",
-                "홍길동", "사원", "웹팀",
-                Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+                User.builder()
+                        .no(1L)
+                        .userId("test")
+                        .password("test")
+                        .name("홍길동")
+                        .position("사원")
+                        .dept(dept)
+                        .submitStatus(Status.DONT)
+                        .role(Role.EMPLOYEE)
+                        .build()
         );
+
         userRepository.save(
-                new User(2L, "test2", "test",
-                        "홍길동2", "사원", "웹팀",
-                        Status.DONT, Role.EMPLOYEE, new ArrayList<>())
+                User.builder()
+                        .no(2L)
+                        .userId("test2")
+                        .password("test")
+                        .name("이몽룡")
+                        .position("사원")
+                        .dept(dept)
+                        .submitStatus(Status.DONT)
+                        .role(Role.EMPLOYEE)
+                        .build()
         );
+
         userRepository.save(
-                new User(3L, "test3", "test",
-                        "홍길동3", "사원", "웹팀",
-                        Status.DONT, Role.ADMIN, new ArrayList<>())
+                User.builder()
+                        .no(3L)
+                        .userId("test3")
+                        .password("test")
+                        .name("아무개")
+                        .position("대표")
+                        .dept(dept)
+                        .submitStatus(Status.DONT)
+                        .role(Role.ADMIN)
+                        .build()
         );
-        targetRepository.save(
-//                new Target(1L, userRepository.findById(2L).get(), "test2", new ArrayList<>())
-                new Target(1L, userRepository.findById(2L).get(), "test2", null)
-        );
-        targetRepository.save(
-//                new Target(2L, userRepository.findById(2L).get(), "test3", new ArrayList<>())
-                new Target(2L, userRepository.findById(2L).get(), "test3", null)
-        );
+
+        List<User> users = userRepository.findTarget(1L, 1L);
     }
 
     public static List<SelectCode> getPositionList() {

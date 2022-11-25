@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link th:href="@{/css/custom.css}" href="./css/custom.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="/js/api.js"></script>
+
+<head th:insert="layout/header :: com_header(~{::title})">
+    <title>평가대상설정</title>
 </head>
 
 <body>
-    <div style="float: right; margin-bottom: 10px">
-        <button class="btn-basic btn-color-black">저장</button>
-        <button class="btn-basic btn-color-grey">취소</button>
+    <div th:replace="layout/navAdmin :: nav_admin"></div>
+    <div style="float: right; margin-bottom: 10px" class="mt-2">
+        <button class="btn-basic btn-color-black" onclick="save()">저장</button>
+<!--        <button class="btn-basic btn-color-grey">취소</button>-->
     </div>
     <div class="width-half fLeft" style="margin-top: 40px;">
         <table>
@@ -41,44 +39,49 @@
                 <td>직위</td>
                 <td>평가여부</td>
             </tr>
-            <tr class="content" th:each="target : ${targetList}">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>
-                    <input name="isEvaluate" th:id="${target.userId}" type="checkbox">
-                </td>
+            <!-- api 후 -->
+            <tr id="target_content" class="content">
+<!--                <td>1</td>-->
+<!--                <td>2</td>-->
+<!--                <td>3</td>-->
+<!--                <td>-->
+<!--                    <input name="isEvaluate" type="checkbox">-->
+<!--                </td>-->
             </tr>
         </table>
     </div>
 </body>
 </html>
 <script>
-    let userNo;
     function selected(obj) {
-        userNo = obj.id;
+        let userNo = obj.id;
 
-        let list = [];
-        let params = {};
-
-        let query = $('input[name="isEvaluate"]:checked');
-        $.each(query, function (idx, item) {
-            list.push({ targetId: item.id })
-        })
-        params.no = userNo;
-
-        API.post('/evaluate/setting/target', {
-            data: params,
+        API.get('/evaluate/setting/target/list?userNo=' + userNo, {
             success: function (result) {
-                console.log('result', result)
+                drawTarget(result)
             }
         })
+    }
+    function drawTarget(list) {
+        $('#target_content').empty();
 
-        API.get('/evaluate/targets', {
-            data: {},
-            success: function (result) {
-                console.log('get', result)
-            }
-        })
+        let html = ''
+        $.each(list, function (idx, item) {
+            html =
+                '<td>'+ item.dept +'</td>' +
+                '<td>'+ item.name +'</td>' +
+                '<td>'+ item.position +'</td>' +
+                '<td>' +
+                '<input name="isEvaluate" type="checkbox">' +
+                '</td>' +
+            $('#target_content').append(html)
+        });
+    }
+    function save() {
+        // let query = $('input[name="isEvaluate"]:checked');
+        // $.each(query, function (idx, item) {
+        //     list.push({ targetId: item.id })
+        // })
+        // console.log('query', query)
     }
 </script>
